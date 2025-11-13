@@ -71,6 +71,7 @@ class Main extends JFrame implements MouseListener {
     int speed = 10;
     boolean pskMode = true;
     boolean pmMode = false;
+    boolean multicolor = false;
 
     class Field extends JPanel {
         ParticleSystem particles;
@@ -136,7 +137,7 @@ class Main extends JFrame implements MouseListener {
         @Override
         public void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
-            particles.draw(g2d, size);
+            particles.draw(g2d, size, multicolor);
         }
     }
 
@@ -158,11 +159,11 @@ class Main extends JFrame implements MouseListener {
                     val -> entropy = val / 100, 100));
 
             Panel.add(createSliderWithTextBox(
-                    "Terminal Velocity (In Pixels Per Second)", 1, 25, 6,
+                    "Terminal Velocity (In Pixels Per Tick)", 1, 25, 6,
                     val -> terminalVelocity = (int) val, 1));
 
             Panel.add(createSliderWithTextBox(
-                    "Gravity (In Pixels Per Second Per Second)", 3, 3000, 30,
+                    "Gravity (In Pixels Per Tick Per Tick)", 3, 3000, 30,
                     val -> gravity = val / 1000, 1000));
 
             Panel.add(createSliderWithTextBox(
@@ -194,7 +195,7 @@ class Main extends JFrame implements MouseListener {
                 field.repaint();
             });
 
-            JButton startstopButton = new JButton("Start/Stop The Simulation");
+            JButton startstopButton = new JButton("Pause/Resume The Simulation");
             startstopButton.addActionListener(e -> {
                 if (timer.isRunning()) {
                     timer.stop();
@@ -203,7 +204,7 @@ class Main extends JFrame implements MouseListener {
                 }
             });
 
-            JButton pskButton = new JButton("Enable/Disable Mouse Functionality");
+            JButton pskButton = new JButton("Enable/Disable Spawning/Killing Particles");
             pskButton.addActionListener(e -> {
                 if (pmMode) {
                     pmMode = false;
@@ -211,7 +212,7 @@ class Main extends JFrame implements MouseListener {
                 pskMode = !pskMode;
             });
 
-            JButton pmButton = new JButton("Enable/Disable Mouse Functionality");
+            JButton pmButton = new JButton("Enable/Disable Moving Particles");
             pmButton.addActionListener(e -> {
                 if (pskMode) {
                     pskMode = false;
@@ -219,11 +220,24 @@ class Main extends JFrame implements MouseListener {
                 pmMode = !pmMode;
             });
 
+            JCheckBox Multicolor = new JCheckBox("Colorful Particles");
+            Multicolor.addActionListener(e -> {
+                multicolor = !multicolor;
+            });
+
+            resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            resetSlidersButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            startstopButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            pskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            pmButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            Multicolor.setAlignmentX(Component.CENTER_ALIGNMENT);
+
             Panel.add(resetButton);
             Panel.add(resetSlidersButton);
             Panel.add(startstopButton);
             Panel.add(pskButton);
             Panel.add(pmButton);
+            Panel.add(Multicolor);
 
             add(Panel);
 

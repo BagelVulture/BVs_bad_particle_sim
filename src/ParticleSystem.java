@@ -68,9 +68,13 @@ public class ParticleSystem {
         }
     }
 
-    public void draw(Graphics g, int size) {
+    public void draw(Graphics g, int size, boolean multicolor) {
         for (Particle p : Particles) {
-            g.setColor(p.color);
+            if (multicolor) {
+                g.setColor(p.color);
+            } else {
+                g.setColor(Color.BLACK);
+            }
             g.fillOval((int) p.position.data[0] - (size/2), (int) p.position.data[1] - (size/2), size, size);
         }
     }
