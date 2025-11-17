@@ -163,7 +163,7 @@ class Main extends JFrame implements MouseListener {
                     val -> terminalVelocity = (int) val, 1));
 
             Panel.add(createSliderWithTextBox(
-                    "Gravity (In Pixels Per Tick Per Tick)", 3, 3000, 30,
+                    "Gravity (In Pixels Per Tick Per Tick)", 0, 1000, 30,
                     val -> gravity = val / 1000, 1000));
 
             Panel.add(createSliderWithTextBox(
@@ -173,6 +173,10 @@ class Main extends JFrame implements MouseListener {
             Panel.add(createSliderWithTextBox(
                     "Size of Particles (In Pixels)", 4, 100, 16,
                     val -> size = (int) val, 1));
+
+            Panel.add(createSliderWithTextBox(
+                    "Velocity of New Particles", 0, 300, 100,
+                    val -> newParticlesVelocity = val / 100, 100));
 
             Panel.add(createSliderWithTextBox(
                     "Speed of the Simulation (In Ms Between Ticks)", 1, 100, 10,
@@ -291,13 +295,15 @@ class Main extends JFrame implements MouseListener {
                 timer.setDelay(speed);
             }
             entropy = 0.9;
+            newParticlesVelocity = 1;
 
-            updateSlider("Terminal Velocity (In Pixels Per Second)", terminalVelocity, 1);
-            updateSlider("Gravity (In Pixels Per Second Per Second)", (int) (gravity * 1000), 1000);
+            updateSlider("Terminal Velocity (In Pixels Per Tick)", terminalVelocity, 1);
+            updateSlider("Gravity (In Pixels Per Tick Per Tick)", (int) (gravity * 1000), 1000);
             updateSlider("Number of Particles", N, 1);
             updateSlider("Size of Particles (In Pixels)", size, 1);
             updateSlider("Speed of the Simulation (In Ms Between Ticks)", speed, 1);
             updateSlider("Entropy (In Unknown Arbitrary Units)", (int) (entropy * 100), 100);
+            updateSlider("Velocity of New Particles", (int) (newParticlesVelocity * 100), 100);
         }
 
         private void updateSlider(String key, int sliderValue, int divider) {
