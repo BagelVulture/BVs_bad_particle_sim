@@ -42,4 +42,4 @@ Buttons:
 - Optional colorful particles mode
 
 ### How to Run
-Releases can be found at https://github.com/BagelVulture/BVs_bad_particle_sim/releases, current version is 1.0.0
+Releases can be found at https://github.com/BagelVulture/BVs_bad_particle_sim/releases or at https://github.com/BagelVulture/BVs_bad_particle_sim/tree/master/out/production, current version is 1.0.0
